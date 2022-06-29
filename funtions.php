@@ -116,8 +116,19 @@ add_action('widgets_init', 'shopify_aid_widgets_init');
 function shopify_aid_scripts()
 {
     wp_enqueue_style('shopify-aid-style', get_stylesheet_uri(), array(), _S_VERSION);
+    wp_enqueue_style('shopify-aid-main', get_template_directory_uri() . '/assets/css/style.css');
+    wp_enqueue_style('shopify-aid-responsive', get_template_directory_uri() . '/assets/css/responsive.css');
+    wp_enqueue_style('bootstrap-icons', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css');
+    wp_enqueue_style('slick-carousel', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick.min.css');
+    wp_enqueue_style('aos-style', 'https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css');
 
     wp_enqueue_script('shopify-aid-navigation', get_template_directory_uri() . '/assets/js/navigation.js', array(), _S_VERSION, true);
+    wp_enqueue_script('jQuery-min-js', get_template_directory_uri() . '/assets/js/jQuery.min.js', array(), _S_VERSION, true);
+    wp_enqueue_script('weblab-slick', get_template_directory_uri() . '/assets/js/slick.min.js');
+    wp_enqueue_script('slim-script', 'https://code.jquery.com/jquery-3.3.1.slim.min.js');
+    wp_enqueue_script('popper-script', get_template_directory_uri() . '/assets/js/popper.min.js');
+    wp_enqueue_script('bootstrap-script', 'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js');
+    wp_enqueue_script('weblab-custom', get_template_directory_uri() . '/assets/js/script.js');
 
     if (is_singular() && comments_open() && get_option('thread_comments')) {
         wp_enqueue_script('comment-reply');
