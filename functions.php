@@ -88,6 +88,42 @@ function shopify_aid_setup()
 
 add_action('after_setup_theme', 'shopify_aid_setup');
 
+class Shopify_Aid_Walker_Nav_Menu extends Walker_Nav_Menu
+{
+
+    // Displays start of an element. E.g '<li> Item Name'
+    // @see Walker::start_el()
+    function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0)
+    {
+        $object = $item->object;
+        $type = $item->type;
+        $title = $item->title;
+        $description = $item->description;
+        $permalink = $item->url;
+
+        $output .= "<li class='nav-item " .  implode(" ", $item->classes) . "'>";
+
+        //Add SPAN if no Permalink
+        if ($permalink && $permalink != '#') {
+            $output .= '<a class="nav-link" href="' . $permalink . '">';
+        } else {
+            $output .= '<span>';
+        }
+
+        $output .= $title;
+
+        if ($description != '' && $depth == 0) {
+            $output .= '<small class="description">' . $description . '</small>';
+        }
+
+        if ($permalink && $permalink != '#') {
+            $output .= '</a>';
+        } else {
+            $output .= '</span>';
+        }
+    }
+}
+
 
 /**
  * Register widget area.
@@ -115,15 +151,16 @@ add_action('widgets_init', 'shopify_aid_widgets_init');
  */
 function shopify_aid_scripts()
 {
-    wp_enqueue_style('shopify-aid-style', get_stylesheet_uri(), array(), _S_VERSION);
-    wp_enqueue_style('shopify-aid-main', get_template_directory_uri() . '/assets/css/style.css');
+    wp_enqueue_style('shopify-aid-style', get_stylesheet_uri(), array(), '_S_VERSION');
+    wp_enqueue_style('shopify-aid-main', get_template_directory_uri() . '/assets/css/style.css', array('bootstrap-css'), '_S_VERSION');
     wp_enqueue_style('shopify-aid-responsive', get_template_directory_uri() . '/assets/css/responsive.css');
+    wp_enqueue_style('bootstrap-css', get_template_directory_uri() . '/assets/css/bootstrap.min.css', array(), '_S_VERSION');
     wp_enqueue_style('bootstrap-icons', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css');
     wp_enqueue_style('slick-carousel', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick.min.css');
     wp_enqueue_style('aos-style', 'https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css');
 
-    wp_enqueue_script('shopify-aid-navigation', get_template_directory_uri() . '/assets/js/navigation.js', array(), _S_VERSION, true);
-    wp_enqueue_script('jQuery-min-js', get_template_directory_uri() . '/assets/js/jQuery.min.js', array(), _S_VERSION, true);
+    wp_enqueue_script('shopify-aid-navigation', get_template_directory_uri() . '/assets/js/navigation.js', array(), '_S_VERSION', true);
+    wp_enqueue_script('jQuery-min-js', get_template_directory_uri() . '/assets/js/jQuery.min.js', array(), '_S_VERSION', true);
     wp_enqueue_script('weblab-slick', get_template_directory_uri() . '/assets/js/slick.min.js');
     wp_enqueue_script('slim-script', 'https://code.jquery.com/jquery-3.3.1.slim.min.js');
     wp_enqueue_script('popper-script', get_template_directory_uri() . '/assets/js/popper.min.js');
