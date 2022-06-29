@@ -114,14 +114,14 @@ h1 {
 
 h2 {
     font-size: 38px;
-    font-style: bold;
+    font-weight: bold;
     color: #377dff;
 }
 
 h3 {
     font-size: 20px;
     line-height: 26px;
-    font-style: medium;
+    font-weight: medium;
 }
 
 h1,
@@ -864,7 +864,7 @@ footer .copy-right {
     height: 400px;
     overflow: hidden;
     padding: 150px 0px;
-    background: url("../images/slide-3.jpg")no-repeat;
+    /* background: url("../images/slide-3.jpg")no-repeat; */
 }
 
 
@@ -900,16 +900,16 @@ footer .copy-right {
     text-align: justify;
 }
 
-.morbie-felis .morbie-outer ul {
+.morbie-felis .morbie-outer ul, .morbie-felis .morbie-outer ol {
     list-style-image: url('../images/check.png');
     padding-top: 16px;
 }
 
-.morbie-felis .morbie-outer ul li {
+.morbie-felis .morbie-outer ul li, .morbie-felis .morbie-outer ol li {
     list-style: inherit;
 }
 
-.morbie-felis .morbie-outer ul li {
+.morbie-felis .morbie-outer ul li, .morbie-felis .morbie-outer ol li {
     list-style: inherit;
     padding-left: 7px;
     margin-left: 20px;

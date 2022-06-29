@@ -23,6 +23,12 @@
 
 $custom_logo_id = get_theme_mod('custom_logo');
 $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
+// get most used tags
+$tags = get_tags(array(
+    'orderby' => 'count',
+    'order' => 'DESC',
+    'number' => 10
+));
 ?>
 
 <footer id="colophon" class="site-footer">
@@ -69,15 +75,11 @@ $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
                         Tags
                     </h3>
                     <div class="footer-tag">
-                        <a href="#">design</a>
-                        <a href="#">Business</a>
-                        <a href="#">recipes</a>
-                        <a href="#">lifehacks </a>
-                        <a href="#">sports</a>
-                        <a href="#">tech</a>
-                        <a href="#">travel</a>
-                        <a href="#">health</a>
-                        <a href="#">entertainment</a>
+                        <?php
+                        foreach ($tags as $tag) {
+                            echo '<a href="' . get_tag_link($tag->term_id) . '">' . $tag->name . '</a>';
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
@@ -86,30 +88,33 @@ $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
                     <h3>
                         Popular Post
                     </h3>
-                    <div class="footer-post">
-                        <div class="d-flex align-items-center terending-block">
-                            <div class="flex-shrink-0">
-                                <img src="<?php echo get_template_directory_uri() . '/assets/images/trending.png'; ?>">
+                    <?php
+                    query_posts('meta_key=post_views_count&orderby=meta_value_num&order=DESC&posts_per_page=2');
+                    if (have_posts()) : while (have_posts()) : the_post();
+                    ?>
+                            <div class="footer-post">
+                                <div class="d-flex align-items-center terending-block">
+                                    <div class="flex-shrink-0">
+                                        <a href="<?php the_permalink(); ?>">
+                                            <img src="<?php echo get_the_post_thumbnail_url(); ?>">
+                                        </a>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <a href="<?php the_permalink(); ?>">
+                                            <h5><?php the_title(); ?></h5>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="flex-grow-1 ms-3">
-                                <h5>Big Tech's battle for billions leaves lots of collateral damage </h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="footer-post">
-                        <div class="d-flex align-items-center terending-block">
-                            <div class="flex-shrink-0">
-                                <img src="<?php echo get_template_directory_uri() . '/assets/images/trending.png'; ?>">
-                            </div>
-                            <div class="flex-grow-1 ms-3">
-                                <h5>Big Tech's battle for billions leaves lots of collateral damage </h5>
-                            </div>
-                        </div>
-                    </div>
+                    <?php
+                        endwhile;
+                    endif;
+                    wp_reset_query();
+                    ?>
                 </div>
             </div>
         </div>
-        <div class="row align-items-center">
+        <div class=" row align-items-center">
             <div class="col-md-12 col-lg-6">
                 <div class="copy-right">
                     <p>&copy; <?php echo date('Y'); ?> <a href="<?php echo home_url(); ?>"><?php echo get_bloginfo('name'); ?></a> All Rights Reserved.</p>
@@ -142,8 +147,8 @@ $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
         </div>
     </div>
 </div>
-</body>
 <!-- WP Footer -->
 <?php wp_footer(); ?>
+</body>
 
 </html>
