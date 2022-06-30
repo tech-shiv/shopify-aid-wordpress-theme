@@ -139,8 +139,16 @@ get_header();
                                 </div>
                             </div>
                         </div>
+                        <?php
+                            endif;
+                        endforeach;
+                        ?>
                     </div>
                 </div>
+                <?php
+                            endif;
+                        endforeach;
+                    ?>
             </div>
         </div>
     </div>
