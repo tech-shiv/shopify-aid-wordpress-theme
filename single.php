@@ -5,39 +5,38 @@ shopify_aid_get_post_views(get_the_ID());
 while (have_posts()) :
     the_post();
 ?>
-<!-- Post Thumbnail with Title -->
-<section class="small-banner single-banner">
-    <div class="container-fluid">
-        <div class="small-inner"
-            style="background: url('<?php echo get_the_post_thumbnail_url(); ?>')no-repeat; background-size:cover">
-            <h1><?php the_title(); ?></h1>
+    <!-- Post Thumbnail with Title -->
+    <section class="small-banner single-banner">
+        <div class="container-fluid">
+            <div class="small-inner" style="background: url('<?php echo get_the_post_thumbnail_url(); ?>')no-repeat; background-size:cover">
+                <h1><?php the_title(); ?></h1>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Post Content -->
-<section class="morbie-felis">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-12 col-md-12">
-                <div class="morbie-outer">
-                    <?php the_content(); ?>
+    <!-- Post Content -->
+    <section class="morbie-felis">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12 col-md-12">
+                    <div class="morbie-outer">
+                        <?php the_content(); ?>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Related Posts -->
-<section class="spotlight related-post">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="section-title-2">
-                    <h2>Related Posts <span></span></h2>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.<br> Lorem Ipsum has
-                        been the industry's standard dummy.</p>
-                    <?php
+    <!-- Related Posts -->
+    <section class="spotlight related-post">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <div class="section-title-2">
+                        <h2>Related Posts <span></span></h2>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.<br> Lorem Ipsum has
+                            been the industry's standard dummy.</p>
+                        <?php
                         $related_posts = get_posts(array(
                             // Posts only has thumbnails
                             'post_type' => 'post',
@@ -55,42 +54,42 @@ while (have_posts()) :
 
                         ));
                         ?>
-                    <div class="section-btn">
-                        <a class="customm-btn" href="<?php echo get_permalink(get_option('page_for_posts')); ?>">View
-                            All</a>
+                        <div class="section-btn">
+                            <a class="customm-btn" href="<?php echo get_permalink(get_option('page_for_posts')); ?>">View
+                                All</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <?php
+                <?php
                 foreach ($related_posts as $post) :
                     if (!empty(get_the_post_thumbnail_url($post->ID))) :
                 ?>
-            <div class="col-md-6 col-lg-4">
-                <div class="spotlight-box">
-                    <div class="spotlight-img">
-                        <a href="<?php echo get_permalink($post->ID); ?>">
-                            <img src="<?php echo get_the_post_thumbnail_url($post->ID); ?>" alt="" class="img-fluid">
-                        </a>
-                    </div>
-                    <div class="box-date">
-                        <a href=""><?php echo get_the_date(__('M d, Y'), $post->ID); ?></a>
-                        <a href=""><?php echo ucfirst(get_the_author_meta('display_name', $post->post_author)); ?></a>
-                    </div>
-                    <!-- Limit Title Characters -->
-                    <a href="<?php echo get_permalink($post->ID); ?>">
-                        <h3><?php echo wp_trim_words($post->post_title, 5, '...'); ?></h3>
-                    </a>
-                    <p><?php echo wp_trim_words($post->post_content, 20); ?></p>
-                </div>
-            </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="spotlight-box">
+                                <div class="spotlight-img">
+                                    <a href="<?php echo get_permalink($post->ID); ?>">
+                                        <img src="<?php echo get_the_post_thumbnail_url($post->ID); ?>" alt="" class="img-fluid">
+                                    </a>
+                                </div>
+                                <div class="box-date">
+                                    <a href="<?php echo get_day_link(get_post_time('Y'), get_post_time('m'), get_post_time('j')); ?>"><?php echo get_the_date(__('M d, Y'), $post->ID); ?></a>
+                                    <a href="<?php echo (get_the_author_meta('url', $post->post_author)); ?>"><?php echo ucfirst(get_the_author_meta('display_name', $post->post_author)); ?></a>
+                                </div>
+                                <!-- Limit Title Characters -->
+                                <a href="<?php echo get_permalink($post->ID); ?>">
+                                    <h3><?php echo wp_trim_words($post->post_title, 5, '...'); ?></h3>
+                                </a>
+                                <p><?php echo wp_trim_words($post->post_content, 20); ?></p>
+                            </div>
+                        </div>
 
-            <?php
+                <?php
                     endif;
                 endforeach;
                 ?>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
 <?php
